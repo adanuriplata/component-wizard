@@ -1,12 +1,27 @@
-import { FC, PropsWithChildren } from 'react';
+import { Children, FC, PropsWithChildren, useState } from 'react';
 
 const WizardContent: FC<PropsWithChildren> = ({ children }): JSX.Element => {
+  const pages = Children.toArray(children);
+  const [activeNumPage, setActiveNumPage] = useState(0);
+  const currentPage = pages[activeNumPage];
+
+  const handleNextPage = () => {
+    setActiveNumPage((index) => index + 1);
+  };
+  const handlePrevPage = () => {
+    setActiveNumPage((index) => index - 1);
+  };
+
   return (
     <div className="wizard">
-      <div className="wizard__content">{children}</div>
+      <div className="wizard__content">{currentPage}</div>
       <div className="wizard__buttons">
-        <button>Siguiente</button>
-        <button>Previo</button>
+        {activeNumPage > 0 && (
+          <button onClick={() => handlePrevPage()}>Previo</button>
+        )}
+        {activeNumPage < pages.length - 1 && (
+          <button onClick={() => handleNextPage()}>Siguiente</button>
+        )}
       </div>
     </div>
   );
