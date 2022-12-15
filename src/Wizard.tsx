@@ -1,5 +1,7 @@
 import { Children, FC, PropsWithChildren, useState } from 'react';
 
+//Simplify version of Wizard
+
 const WizardContent: FC<PropsWithChildren> = ({ children }): JSX.Element => {
   const pages = Children.toArray(children);
   const [activeNumPage, setActiveNumPage] = useState(0);
